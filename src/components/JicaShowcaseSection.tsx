@@ -11,7 +11,6 @@ import {
   MapPin,
   Users,
   ArrowRight,
-  Sparkles,
 } from "lucide-react";
 
 const JICA_PHOTOS = [
@@ -182,7 +181,6 @@ export default function JicaShowcaseSection() {
           {/* Prochaines étapes programmées */}
           <div className="rounded-2xl bg-brand-950 text-white p-5 space-y-3 border border-sky-500/25">
             <div className="inline-flex items-center gap-1.5 text-xs font-extrabold text-emerald-400">
-              <Sparkles className="w-4 h-4" />
               <span>Prochaines étapes programmées</span>
             </div>
             <ul className="space-y-2 text-xs sm:text-sm text-slate-200">

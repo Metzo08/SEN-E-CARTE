@@ -5,7 +5,6 @@ import Link from "next/link";
 import {
   Play,
   Film,
-  Sparkles,
   CheckCircle2,
   ArrowRight,
   MessageCircle,
@@ -241,7 +240,6 @@ export default function SenECarteVideoCinema({ compact = false }: Props) {
           {/* Colonne éditoriale & appels à l'action */}
           <div className="lg:col-span-5 space-y-4">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-emerald-300 text-xs font-bold">
-              <Sparkles className="w-3.5 h-3.5" />
               <span>{activeVideo.badge}</span>
             </div>
 

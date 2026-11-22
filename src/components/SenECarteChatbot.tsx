@@ -7,7 +7,6 @@ import {
   Send,
   Globe,
   Clock,
-  Sparkles,
   ExternalLink,
   ArrowRight,
   MessageCircle,
@@ -364,7 +363,6 @@ export default function SenECarteChatbot() {
 
             {loading && (
               <div className="flex items-center gap-2 text-xs text-slate-500 px-2">
-                <Sparkles className="w-3.5 h-3.5 text-sky-500 animate-spin" />
                 <span>{lang === "wo" ? "Maa ngi seet tontu bi..." : "Recherche & rédaction en cours..."}</span>
               </div>
             )}

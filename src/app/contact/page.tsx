@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Phone, Mail, MapPin, ArrowUpRight, Sparkles, MessageCircle } from "lucide-react";
+import { Phone, Mail, MapPin, ArrowUpRight, MessageCircle } from "lucide-react";
 import { SITE_CONFIG } from "@/data/senecarteData";
 import ContactBookingClient from "@/components/ContactBookingClient";
 import QuoteCalculator from "@/components/QuoteCalculator";
@@ -17,7 +17,7 @@ export default function ContactPage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-7 space-y-3">
             <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-400/35 text-emerald-300 text-xs font-bold">
-              <Sparkles className="w-3.5 h-3.5" /> Contact direct &amp; rendez-vous · Dakar, Sénégal
+              Contact direct &amp; rendez-vous · Dakar, Sénégal
             </span>
             <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
               Discutez avec nous ou{" "}

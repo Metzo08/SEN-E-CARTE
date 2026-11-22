@@ -3,7 +3,6 @@ import Link from "next/link";
 import {
   ArrowRight,
   CheckCircle2,
-  Sparkles,
   ShieldCheck,
   Zap,
   CreditCard,
@@ -55,7 +54,6 @@ export default function SolutionsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
           <div className="max-w-3xl space-y-4">
             <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-400/35 text-emerald-300 text-xs font-bold">
-              <Sparkles className="w-3.5 h-3.5" />
               <span>Catalogue organisé par métier · Sénégal &amp; UEMOA</span>
             </span>
             <h1 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight">

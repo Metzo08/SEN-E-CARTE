@@ -13,7 +13,6 @@ import {
   Layers,
   CheckCircle2,
   Rocket,
-  Sparkles,
   Send,
   ArrowRight,
   Building2,
@@ -622,7 +621,7 @@ export default function SaaSStudioPage() {
             <div className="rounded-3xl bg-brand-950 text-white p-8 sm:p-10 border border-emerald-500/30 flex flex-col lg:flex-row items-center justify-between gap-6">
               <div className="space-y-2 max-w-2xl">
                 <div className="inline-flex items-center gap-1.5 text-xs font-extrabold tracking-wider text-emerald-400">
-                  <Sparkles className="w-4 h-4" /> Développement SaaS, web, mobile &amp; IA sur-mesure
+                  Développement SaaS, web, mobile &amp; IA sur-mesure
                 </div>
                 <h2 className="text-2xl sm:text-3xl font-extrabold">
                   Votre secteur a un besoin spécifique ? Nous concevons votre application de a à z.

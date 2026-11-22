@@ -18,7 +18,6 @@ import {
   Plus,
   Printer,
   RefreshCw,
-  Sparkles,
   TrendingUp,
   Clock,
   AlertTriangle,
@@ -787,7 +786,7 @@ export default function SuperAdminPage() {
             },
             { id: "factures" as AdminTab, label: "Factures & devis", icon: FileText },
             { id: "contrats" as AdminTab, label: "Suivi des contrats", icon: FileSignature },
-            { id: "agents" as AdminTab, label: "Agents réseaux & LinkedIn (5 prêts)", icon: Sparkles },
+            { id: "agents" as AdminTab, label: "Agents réseaux & LinkedIn (5 prêts)", icon: Bot },
             { id: "veille" as AdminTab, label: "Veille Agent-Reach & marketing", icon: Compass },
           ].map((tab) => {
             const active = activeTab === tab.id;
@@ -994,7 +993,6 @@ export default function SuperAdminPage() {
                   onClick={() => handleRunTargetedProspection()}
                   className="md:col-span-4 btn-glow-emerald inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-brand-950 text-xs font-extrabold cursor-pointer disabled:opacity-50"
                 >
-                  <Sparkles className="w-4 h-4" />
                   <span>{isSearching ? "Recherche en cours..." : "Générer des prospects & notes"}</span>
                 </button>
               </div>

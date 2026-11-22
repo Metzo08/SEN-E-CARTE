@@ -5,7 +5,6 @@ import {
   CreditCard,
   Bot,
   ShieldCheck,
-  Sparkles,
   CheckCircle2,
   Cpu,
   TrendingUp,
@@ -96,7 +95,6 @@ export default function HomePage() {
 
             <div className="flex flex-wrap gap-3 pt-1">
               <Link href="/solutions" className="btn-neon">
-                <Sparkles className="w-4 h-4" />
                 <span>Explorer nos solutions</span>
               </Link>
               <Link href="/commander" className="btn-ghost-glow">

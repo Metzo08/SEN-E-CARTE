@@ -6,7 +6,6 @@ import {
   Scale,
   FileSearch,
   CalendarClock,
-  Sparkles,
   CheckCircle2,
   ExternalLink,
   BellRing,
@@ -426,7 +425,6 @@ export default function PortfolioRealisationsShowcase() {
 
               <div className="lg:col-span-6 rounded-2xl bg-brand-950 text-white p-5 space-y-4 border border-sky-500/30">
                 <div className="text-xs font-extrabold text-sky-300 flex items-center gap-1.5">
-                  <Sparkles className="w-4 h-4" />
                   <span>Recherche profonde (deep search) &amp; assistant IA juridique du dossier</span>
                 </div>
 

@@ -4,7 +4,6 @@ import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import {
   Bot,
-  Sparkles,
   Send,
   Copy,
   Check,
@@ -239,7 +238,6 @@ function ProspectionIAInner() {
                 disabled={loading}
                 className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-brand-950 font-extrabold text-xs sm:text-sm transition-colors shadow-lg disabled:opacity-60"
               >
-                <Sparkles className="w-4 h-4" />
                 <span>{loading ? "Analyse..." : "Trouver clients"}</span>
               </button>
             </div>
@@ -261,7 +259,6 @@ function ProspectionIAInner() {
               disabled={huntingLive}
               className="shrink-0 inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-brand-950 font-extrabold text-xs transition-colors disabled:opacity-60"
             >
-              <Sparkles className="w-4 h-4" />
               <span>{huntingLive ? "Recherche Web & Réseaux en cours..." : "Lancer une chasse Web & Réseaux maintenant"}</span>
             </button>
           </div>

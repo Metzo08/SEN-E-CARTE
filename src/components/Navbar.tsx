@@ -18,7 +18,6 @@ import {
   Cpu,
   Globe2,
   Layers,
-  Sparkles,
   BookOpen,
   QrCode,
   Calculator,
@@ -522,7 +521,6 @@ export default function Navbar() {
             href="/commander"
             className="btn-glow-emerald inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-brand-950 text-xs font-extrabold whitespace-nowrap"
           >
-            <Sparkles className="w-3.5 h-3.5" />
             <span>Commander</span>
           </Link>
           <a
@@ -629,7 +627,6 @@ export default function Navbar() {
               onClick={() => setMobileOpen(false)}
               className="btn-glow-emerald flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl text-brand-950 font-extrabold text-xs"
             >
-              <Sparkles className="w-3.5 h-3.5" />
               <span>Commander</span>
             </Link>
             <Link

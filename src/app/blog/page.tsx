@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { BookOpen, ArrowRight, Sparkles } from "lucide-react";
+import { BookOpen, ArrowRight, } from "lucide-react";
 import { SEO_ARTICLES } from "@/data/senecarteData";
 import JicaShowcaseSection from "@/components/JicaShowcaseSection";
 
@@ -79,7 +79,6 @@ export default function BlogPage() {
                   href="/contact"
                   className="inline-flex items-center gap-1.5 text-xs font-extrabold text-emerald-700 hover:text-emerald-800"
                 >
-                  <Sparkles className="w-3.5 h-3.5" />
                   <span>Échanger sur ce sujet</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>

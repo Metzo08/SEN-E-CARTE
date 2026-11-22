@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 import {
   Send,
-  Sparkles,
   Copy,
   CheckCircle2,
   Linkedin,
@@ -185,7 +184,6 @@ export default function SuperAdminAgentsConsole() {
       <div className="rounded-3xl bg-[#071A30] text-white p-6 sm:p-8 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
         <div className="space-y-1.5 max-w-3xl">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-xs font-bold">
-            <Sparkles className="w-3.5 h-3.5" />
             <span>5 agents configurés · En veille · Prêts sur vos instructions</span>
           </div>
           <h2 className="text-xl sm:text-2xl font-extrabold">

@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, Sparkles, Phone } from "lucide-react";
+import { ArrowRight, CheckCircle2, Phone } from "lucide-react";
 import { SOLUTIONS, SITE_CONFIG, SOLUTION_IMAGES } from "@/data/senecarteData";
 
 export default function InteractiveSolutionFinder() {
@@ -14,7 +14,7 @@ export default function InteractiveSolutionFinder() {
       <div className="hero-grid text-white p-6 sm:p-8 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-sky-500/20">
         <div>
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-500/20 border border-sky-400/40 text-sky-300 text-xs font-bold mb-2">
-            <Sparkles className="w-3.5 h-3.5" /> Trouvez votre solution Sen-E-Carte en 1 clic
+            Trouvez votre solution Sen-E-Carte en 1 clic
           </span>
           <h2 className="text-xl sm:text-3xl font-extrabold tracking-tight">
             Quel est votre secteur ou votre besoin prioritaire ?
