@@ -503,6 +503,9 @@ export default function Navbar() {
           <Link href="/a-propos" className={pillClass(pathname === "/a-propos")}>
             À propos
           </Link>
+          <Link href="/contact" className={pillClass(pathname === "/contact")}>
+            Contact
+          </Link>
         </nav>
 
         {/* 3. Actions Droite Desktop (aérées & jamais coupées) */}

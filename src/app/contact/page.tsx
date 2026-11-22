@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import { Phone, Mail, MapPin, ArrowUpRight, Sparkles } from "lucide-react";
+import { Phone, Mail, MapPin, ArrowUpRight, Sparkles, MessageCircle } from "lucide-react";
 import { SITE_CONFIG } from "@/data/senecarteData";
+import ContactBookingClient from "@/components/ContactBookingClient";
 import QuoteCalculator from "@/components/QuoteCalculator";
 
 export const metadata: Metadata = {
-  title: "Contact & demande de démo — Sen-E-Carte Dakar",
+  title: "Contact & prise de rendez-vous — Sen-E-Carte Dakar",
   description:
-    "Contactez Ahmed Tall et l'équipe Sen-E-Carte au +221 77 602 67 83 pour vos cartes intelligentes QR-NFC, logiciels métiers et projets IA.",
+    "Discutez avec l'équipe Sen-E-Carte ou prenez rendez-vous en ligne (visio, WhatsApp, appel ou bureau à Dakar) pour vos cartes QR-NFC, plateformes SaaS et projets IA.",
 };
 
 export default function ContactPage() {
@@ -16,16 +17,16 @@ export default function ContactPage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-7 space-y-3">
             <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-400/35 text-emerald-300 text-xs font-bold">
-              <Sparkles className="w-3.5 h-3.5" /> Contact direct · Dakar &amp; Thiès, Sénégal
+              <Sparkles className="w-3.5 h-3.5" /> Contact direct &amp; rendez-vous · Dakar, Sénégal
             </span>
             <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
-              Parlons de votre{" "}
+              Discutez avec nous ou{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-emerald-400">
-                Projet de digitalisation
+                prenez rendez-vous en ligne
               </span>
             </h1>
             <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
-              Réponse rapide sur WhatsApp ou par email avec démonstration personnalisée pour votre IPM, école, GIE, forage, chantier BTP ou entreprise.
+              Choisissez un créneau en visio, par téléphone, sur WhatsApp ou à Dakar pour échanger sur vos cartes intelligentes QR-NFC, votre plateforme métier ou votre projet IA.
             </p>
           </div>
           <div className="lg:col-span-5">
@@ -33,7 +34,7 @@ export default function ContactPage() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/images/illustrations/business-nfc.jpg"
-                alt="Rencontre et démonstration Sen-E-Carte à Dakar"
+                alt="Échange et prise de rendez-vous Sen-E-Carte à Dakar"
                 className="w-full h-56 object-cover"
               />
             </div>
@@ -41,9 +42,10 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 space-y-14">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          <div className="lg:col-span-5 space-y-4">
+          {/* Coordonnées directes */}
+          <div className="lg:col-span-4 space-y-4">
             <a
               href={`https://wa.me/${SITE_CONFIG.whatsapp}`}
               target="_blank"
@@ -51,10 +53,23 @@ export default function ContactPage() {
               className="bento-card flex items-center gap-3.5 p-5 rounded-2xl"
             >
               <div className="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                <MessageCircle className="w-5 h-5" />
+              </div>
+              <div>
+                <div className="text-xs text-slate-500">WhatsApp &amp; téléphone direct</div>
+                <div className="font-extrabold text-slate-950">{SITE_CONFIG.phone}</div>
+              </div>
+            </a>
+
+            <a
+              href={`tel:${SITE_CONFIG.phone.replace(/\s+/g, "")}`}
+              className="bento-card flex items-center gap-3.5 p-5 rounded-2xl"
+            >
+              <div className="w-11 h-11 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center shrink-0">
                 <Phone className="w-5 h-5" />
               </div>
               <div>
-                <div className="text-xs text-slate-500">Téléphone &amp; WhatsApp direct</div>
+                <div className="text-xs text-slate-500">Appel vocal direct</div>
                 <div className="font-extrabold text-slate-950">{SITE_CONFIG.phone}</div>
               </div>
             </a>
@@ -63,7 +78,7 @@ export default function ContactPage() {
               href={`mailto:${SITE_CONFIG.email}`}
               className="bento-card flex items-center gap-3.5 p-5 rounded-2xl"
             >
-              <div className="w-11 h-11 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center shrink-0">
+              <div className="w-11 h-11 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
                 <Mail className="w-5 h-5" />
               </div>
               <div>
@@ -96,9 +111,15 @@ export default function ContactPage() {
             </a>
           </div>
 
-          <div className="lg:col-span-7">
-            <QuoteCalculator />
+          {/* Module Prise de rendez-vous & discussion */}
+          <div className="lg:col-span-8">
+            <ContactBookingClient />
           </div>
+        </div>
+
+        {/* Simulateur de devis rapide */}
+        <div>
+          <QuoteCalculator />
         </div>
       </div>
     </div>
