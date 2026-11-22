@@ -36,7 +36,7 @@ const SOLUTIONS_ITEMS = [
     desc: "Tiers-payant NFC/QR anti-fraude, lettres de garantie & DME",
     icon: ShieldCheck,
     color: "text-emerald-600 bg-emerald-50",
-    badge: "Démo live",
+    badge: "En ligne",
   },
   {
     href: "/realisations#legaltech",
@@ -159,7 +159,7 @@ const TARIFS_ITEMS = [
   },
   {
     href: "/contact",
-    title: "Demander une démo ou un devis",
+    title: "Demander un devis ou un contact",
     desc: "Échange direct avec Ahmed Tall et l'équipe technique à Dakar",
     icon: Users,
     color: "text-indigo-600 bg-indigo-50",
@@ -616,7 +616,7 @@ export default function Navbar() {
               onClick={() => setMobileOpen(false)}
               className="block px-3 py-2 rounded-xl text-sm font-semibold text-slate-200 hover:bg-white/10"
             >
-              Contact &amp; démo
+              Contact &amp; devis
             </Link>
           </div>
 

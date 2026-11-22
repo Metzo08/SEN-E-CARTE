@@ -323,7 +323,7 @@ export default function PortfolioRealisationsShowcase() {
                   className="btn-glow-emerald inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl text-brand-950 font-extrabold text-xs sm:text-sm"
                 >
                   <Gavel className="w-4 h-4" />
-                  <span>Demander une démo pour mon cabinet d&apos;avocats</span>
+                  <span>Équiper mon cabinet d&apos;avocats</span>
                 </a>
               </div>
             </div>

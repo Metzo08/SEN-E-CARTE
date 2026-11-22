@@ -114,7 +114,7 @@ const SAAS_APPLICATIONS: SaaSApplication[] = [
       "Journal temps réel & export PDF certifié QR",
     ],
     liveHref: "/portail-ipm",
-    liveLabel: "Ouvrir la démo live",
+    liveLabel: "Ouvrir le portail IPM",
   },
   {
     id: "gestion-scolaire-cmu",
@@ -160,7 +160,7 @@ const SAAS_APPLICATIONS: SaaSApplication[] = [
       "Scoring IA 0–100 & pitch WhatsApp 1-clic généré",
       "Alertes quotidiennes par email vers la direction",
     ],
-    liveHref: "/app/prospection-ia",
+    liveHref: "/contact",
     liveLabel: "Lancer l'Agent IA",
   },
 
@@ -428,13 +428,6 @@ export default function SaaSStudioPage() {
                 <ShieldCheck className="w-4 h-4" />
                 <span>Portail IPM live</span>
               </Link>
-              <Link
-                href="/app/prospection-ia"
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-brand-950 font-extrabold text-xs sm:text-sm"
-              >
-                <Bot className="w-4 h-4" />
-                <span>Agent prospection IA</span>
-              </Link>
             </div>
           </div>
 
@@ -618,7 +611,7 @@ export default function SaaSStudioPage() {
                       } inline-flex items-center justify-center gap-1.5 py-2.5 rounded-xl font-extrabold text-xs transition-all`}
                     >
                       <Send className="w-3.5 h-3.5" />
-                      <span>{app.liveHref || app.openStudioTab ? "Devis" : "Demander une démo"}</span>
+                      <span>{app.liveHref || app.openStudioTab ? "Devis" : "Demander un devis"}</span>
                     </a>
                   </div>
                 </div>

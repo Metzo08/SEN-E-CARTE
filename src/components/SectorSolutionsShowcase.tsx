@@ -228,8 +228,8 @@ const SECTOR_SOLUTIONS: SectorSolution[] = [
       "Automatisation de workflows (n8n, CRM, emails, factures, relances WhatsApp)",
       "Intégration d'IA générative sur vos documents internes (RAG sécurisé)",
     ],
-    liveHref: "/app/prospection-ia",
-    liveLabel: "Tester l'agent IA",
+    liveHref: "/contact",
+    liveLabel: "Parler à notre équipe",
   },
 ];
 
@@ -368,7 +368,7 @@ export default function SectorSolutionsShowcase() {
               className="btn-glow-emerald inline-flex items-center gap-2 px-5 py-3 rounded-xl text-brand-950 text-xs sm:text-sm font-extrabold"
             >
               <Send className="w-4 h-4" />
-              <span>Demander une démo pour mon secteur</span>
+              <span>Demander un devis pour mon secteur</span>
             </a>
           </div>
         </div>

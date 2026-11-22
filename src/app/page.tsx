@@ -69,8 +69,8 @@ export default function HomePage() {
               <Bot className="w-5 h-5 text-amber-300" />
             </span>
             <div>
-              <div className="text-[11px] text-slate-300">Agent IA 24/7</div>
-              <div className="text-sm font-extrabold">+24 prospects ce matin</div>
+              <div className="text-[11px] text-slate-300">Assistant IA FR/Wolof</div>
+              <div className="text-sm font-extrabold">Réponse en direct · 24/7</div>
             </div>
           </div>
         </div>
@@ -105,7 +105,7 @@ export default function HomePage() {
               </Link>
               <Link href="/portail-ipm" className="btn-ghost-glow">
                 <ShieldCheck className="w-4 h-4 text-emerald-300" />
-                <span>Démo portail IPM</span>
+                <span>Portail IPM</span>
               </Link>
             </div>
 
@@ -406,13 +406,6 @@ export default function HomePage() {
               >
                 <Calculator className="w-4 h-4 text-sky-300" />
                 <span>Simulateur de devis</span>
-              </Link>
-              <Link
-                href="/app/prospection-ia"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-amber-400/15 hover:bg-amber-400/25 border border-amber-400/40 text-amber-300 font-bold text-sm transition-colors"
-              >
-                <TrendingUp className="w-4 h-4" />
-                <span>Agent IA 24/7</span>
               </Link>
             </div>
           </div>

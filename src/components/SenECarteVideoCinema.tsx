@@ -283,7 +283,7 @@ export default function SenECarteVideoCinema({ compact = false }: Props) {
                   className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 text-white font-bold text-xs sm:text-sm transition-colors"
                 >
                   <MessageCircle className="w-4 h-4 text-emerald-400" />
-                  <span>Démo WhatsApp</span>
+                  <span>Échanger sur WhatsApp</span>
                 </a>
               </div>
             )}

@@ -72,8 +72,7 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2.5 text-xs">
               <li><Link href="/app" className="hover:text-white transition-colors">Studio cartes QR &amp; NFC</Link></li>
-              <li><Link href="/app/prospection-ia" className="hover:text-amber-300 text-amber-300/90 font-semibold transition-colors">Agent IA prospection &amp; CRM</Link></li>
-              <li><Link href="/c/ahmed-tall-senecarte" className="hover:text-white transition-colors">Démo carte digitale live</Link></li>
+              <li><Link href="/c/ahmed-tall-senecarte" className="hover:text-white transition-colors">Aperçu carte digitale</Link></li>
               <li><Link href="/a-propos" className="hover:text-white transition-colors">À propos &amp; équipe fondatrice</Link></li>
               <li><Link href="/solutions/developpement-sur-mesure-ia" className="hover:text-white transition-colors">Développement web, mobile &amp; IA</Link></li>
               <li><Link href="/tarifs" className="hover:text-white transition-colors">Tarifs FCFA &amp; configurateur</Link></li>

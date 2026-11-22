@@ -80,7 +80,7 @@ export default function BlogPage() {
                   className="inline-flex items-center gap-1.5 text-xs font-extrabold text-emerald-700 hover:text-emerald-800"
                 >
                   <Sparkles className="w-3.5 h-3.5" />
-                  <span>Demander une démonstration sur ce sujet</span>
+                  <span>Échanger sur ce sujet</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>

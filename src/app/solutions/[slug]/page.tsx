@@ -85,15 +85,8 @@ export default async function SolutionDetailPage({
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-brand-950 font-extrabold text-sm transition-colors"
               >
                 <Phone className="w-4 h-4" />
-                <span>Demander une démo sur WhatsApp</span>
+                <span>Échanger sur WhatsApp</span>
               </a>
-              <Link
-                href={`/app/prospection-ia?solution=${sol.slug}`}
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/40 text-amber-300 font-bold text-sm transition-colors"
-              >
-                <Bot className="w-4 h-4" />
-                <span>Générer des prospects IA pour cette offre</span>
-              </Link>
             </div>
           </div>
           <div className="lg:col-span-5">

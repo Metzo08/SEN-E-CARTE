@@ -140,7 +140,7 @@ export default function RealisationsPage() {
               href="/contact"
               className="inline-flex items-center gap-2 px-5 py-3.5 rounded-2xl bg-white/10 hover:bg-white/15 border border-white/15 text-white font-bold text-sm transition-colors"
             >
-              <span>Demander une démo</span>
+              <span>Nous contacter</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
