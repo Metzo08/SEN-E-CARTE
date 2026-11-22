@@ -8,38 +8,45 @@ import { SITE_CONFIG } from "@/data/senecarteData";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_CONFIG.domain),
   title: {
-    default: "Sen-E-Carte | Cartes Intelligentes QR-NFC, SaaS Santé IPM, CMU & IA au Sénégal",
+    default:
+      "Sen-E-Carte | Cartes de visite NFC & QR dynamique, logiciels métiers, LegalTech & IA au Sénégal",
     template: "%s | Sen-E-Carte Sénégal",
   },
   description:
-    "Plateforme SaaS leader au Sénégal : cartes de santé numériques IPM (QR/NFC), cartes scolaires CMU, cartes de visite NFC, cartes membres GIE, logiciels métiers (forages ASUFOR, stocks SYSCOHADA) et développement web, mobile & IA sur mesure.",
+    "Sen-E-Carte conçoit des cartes de visite intelligentes QR dynamique + NFC, des cartes santé IPM & scolaires CMU, et des solutions métiers sur-mesure pour entreprises, cabinets d'avocats, PME, BTP, immobilier et ONG au Sénégal.",
   keywords: [
     "Sen-E-Carte",
-    "carte de santé numérique Sénégal",
-    "digitalisation IPM Dakar",
+    "carte de visite intelligente NFC Sénégal",
+    "carte de visite QR code dynamique Dakar",
+    "carte de santé numérique IPM Sénégal",
+    "logiciel cabinet avocat OCR Sénégal",
+    "ERP PME SYSCOHADA Dakar",
+    "gestion immobilière quittances WhatsApp Sénégal",
     "carte scolaire intelligente CMU Sénégal",
-    "carte de visite NFC Dakar",
-    "carte membre GIE Sénégal",
-    "logiciel facturation forage ASUFOR",
-    "développement site web et IA Sénégal",
-    "Ahmed TALL",
+    "logiciel gestion forage ASUFOR",
+    "logiciel BTP devis DQE Sénégal",
+    "tontine digitale Wave Orange Money",
+    "chatbot IA français wolof Sénégal",
+    "développement application web mobile Dakar",
+    "Ahmed Tall Sen-E-Carte",
   ],
   authors: [{ name: "Ahmed Tall", url: SITE_CONFIG.founder.linkedin }],
   creator: "Sen-E-Carte",
+  publisher: "Sen-E-Carte",
   openGraph: {
     type: "website",
     locale: "fr_SN",
     url: SITE_CONFIG.domain,
     siteName: "Sen-E-Carte",
-    title: "Sen-E-Carte | cartes intelligentes QR-NFC, SaaS & IA au Sénégal",
+    title: "Sen-E-Carte | Cartes de visite NFC/QR & solutions métiers pour entreprises au Sénégal",
     description:
-      "Digitalisez vos IPM, écoles (CMU), GIE, entreprises et forages avec les cartes intelligentes QR/NFC, les logiciels métiers et les agents IA de sen-e-carte.",
+      "Cartes de visite intelligentes QR dynamique + NFC, portails santé IPM, LegalTech avocats OCR, ERP SYSCOHADA, gestion scolaire, BTP, immobilier et agents IA FR/Wolof à Dakar.",
     images: [
       {
-        url: "/images/senecarte-hero-nfc.jpg",
+        url: "/images/illustrations/hero-wow.jpg",
         width: 1280,
         height: 720,
-        alt: "Sen-E-Carte — Cartes intelligentes QR dynamique et NFC au Sénégal",
+        alt: "Sen-E-Carte — Cartes intelligentes QR dynamique + NFC et solutions métiers au Sénégal",
       },
     ],
   },
@@ -47,10 +54,10 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@SenECarte",
     creator: "@SenECarte",
-    title: "Sen-E-Carte | cartes intelligentes QR-NFC & SaaS au Sénégal",
+    title: "Sen-E-Carte | Cartes NFC/QR & solutions métiers au Sénégal",
     description:
-      "Cartes de santé IPM, cartes scolaires CMU, cartes NFC pro, logiciels métiers et studio IA sen-e-carte.",
-    images: ["/images/senecarte-hero-nfc.jpg"],
+      "Cartes de visite intelligentes QR+NFC, santé IPM, LegalTech avocats, ERP PME SYSCOHADA et IA FR/Wolof au Sénégal.",
+    images: ["/images/illustrations/hero-wow.jpg"],
   },
   alternates: {
     canonical: SITE_CONFIG.domain,
@@ -58,6 +65,13 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
 };
 
@@ -66,11 +80,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "Organization",
+        "@type": ["Organization", "LocalBusiness"],
         name: "Sen-E-Carte",
         url: SITE_CONFIG.domain,
+        logo: `${SITE_CONFIG.domain}/images/logo-sen-e-carte.png`,
+        image: `${SITE_CONFIG.domain}/images/illustrations/hero-wow.jpg`,
         telephone: SITE_CONFIG.phone,
         email: SITE_CONFIG.email,
+        priceRange: "5 000 FCFA - Sur devis",
+        areaServed: ["Sénégal", "UEMOA", "Afrique de l'Ouest"],
         founder: {
           "@type": "Person",
           name: SITE_CONFIG.founder.name,
@@ -92,14 +110,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       },
       {
         "@type": "SoftwareApplication",
-        name: "Sen-E-Carte SaaS",
+        name: "Sen-E-Carte SaaS & Cartes Intelligentes QR-NFC",
         applicationCategory: "BusinessApplication",
         operatingSystem: "Web, PWA, Android, iOS",
-        url: `${SITE_CONFIG.domain}/app`,
+        url: `${SITE_CONFIG.domain}/solutions`,
         offers: {
           "@type": "Offer",
           priceCurrency: "XOF",
-          price: "4500",
+          price: "5000",
         },
       },
     ],

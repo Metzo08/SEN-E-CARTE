@@ -5,7 +5,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/api/"],
+      disallow: ["/api/", "/super-admin", "/app/prospection-ia"],
     },
     sitemap: "https://www.senecarte.com/sitemap.xml",
     host: "https://www.senecarte.com",
