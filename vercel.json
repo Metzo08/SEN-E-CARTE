@@ -1,0 +1,23 @@
+{
+  "framework": "nextjs",
+  "crons": [
+    {
+      "path": "/api/cron/prospection-autonome",
+      "schedule": "0 8 * * *"
+    },
+    {
+      "path": "/api/cron/veille-marketing-hebdo",
+      "schedule": "0 9 * * 1,4"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 120" fill="none">
+  <rect width="260" height="120" rx="18" fill="#ffffff"/>
+  <defs>
+    <linearGradient id="inspGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0EA5E9"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+  </defs>
+  <circle cx="48" cy="60" r="28" fill="url(#inspGrad)"/>
+  <text x="48" y="72" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="34" fill="#ffffff">!</text>
+  <text x="88" y="62" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="28" fill="#0F172A">INSP!R</text>
+  <text x="88" y="86" font-family="Arial, Helvetica, sans-serif" font-weight="800" font-size="16" fill="#0284C7">Sénégal · Protection sociale</text>
+</svg>
