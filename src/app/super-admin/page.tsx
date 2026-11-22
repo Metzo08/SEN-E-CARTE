@@ -26,8 +26,9 @@ import {
   Trash2,
 } from "lucide-react";
 import { SITE_CONFIG, SOLUTIONS } from "@/data/senecarteData";
+import SuperAdminAgentsConsole from "@/components/SuperAdminAgentsConsole";
 
-type AdminTab = "dashboard" | "prospection" | "factures" | "contrats" | "veille";
+type AdminTab = "dashboard" | "prospection" | "agents" | "factures" | "contrats" | "veille";
 
 interface ProspectItem {
   id: string;
@@ -786,6 +787,7 @@ export default function SuperAdminPage() {
             },
             { id: "factures" as AdminTab, label: "Factures & devis", icon: FileText },
             { id: "contrats" as AdminTab, label: "Suivi des contrats", icon: FileSignature },
+            { id: "agents" as AdminTab, label: "Agents réseaux & LinkedIn (5 prêts)", icon: Sparkles },
             { id: "veille" as AdminTab, label: "Veille Agent-Reach & marketing", icon: Compass },
           ].map((tab) => {
             const active = activeTab === tab.id;
@@ -1487,6 +1489,9 @@ export default function SuperAdminPage() {
             </div>
           </div>
         )}
+
+        {/* ONGLET 6 : ÉQUIPE AGENTS RÉSEAUX SOCIAUX, LINKEDIN & MARKETING */}
+        {activeTab === "agents" && <SuperAdminAgentsConsole />}
 
         {/* ONGLET 5 : VEILLE AGENT-REACH & MARKETING SÉNÉGAL */}
         {activeTab === "veille" && (

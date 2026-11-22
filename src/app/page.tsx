@@ -378,19 +378,111 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 7. BANDEAU FINAL : AGENT IA 24/7, DEVIS & RESSOURCES */}
+      {/* 6B. LOGICIELS MÉTIERS SUR-MESURE POUR LES ENTREPRISES & STRUCTURES PRIVÉES */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div className="rounded-3xl bg-white border border-slate-200 p-6 sm:p-10 shadow-sm space-y-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div className="max-w-3xl space-y-2">
+              <span className="inline-block px-3 py-1 rounded-full bg-sky-100 text-sky-800 text-xs font-bold">
+                Ingénierie logicielle · Entreprises, PME &amp; structures privées
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight">
+                Des logiciels métiers sur-mesure que Sen-E-Carte conçoit pour votre entreprise
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                Au-delà des cartes de visite intelligentes QR + NFC, nous développons des applications métiers complètes, rapides à déployer (7 à 14 jours) et adaptées aux réalités du Sénégal : paiement Wave / Orange Money, facturation SYSCOHADA et support à Dakar.
+              </p>
+            </div>
+            <Link
+              href="/commander?tab=solutions"
+              className="btn-glow-navy inline-flex items-center gap-2 px-5 py-3 rounded-xl text-white text-xs sm:text-sm font-extrabold shrink-0"
+            >
+              <span>Commander un logiciel métier</span>
+              <ArrowRight className="w-4 h-4 text-emerald-300" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {[
+              {
+                tag: "PME & commerce",
+                title: "ERP stocks, caisse & facturation SYSCOHADA",
+                desc: "Gestion multi-boutiques, devis PDF, TVA 18 %, alertes de rupture de stock et encaissements Wave / Orange Money.",
+                delay: "Livraison : 10 jours",
+              },
+              {
+                tag: "Immobilier & syndics",
+                title: "Gestion locative & quittances WhatsApp",
+                desc: "Suivi des locataires, encaissement des loyers Mobile Money, relances automatiques et quittances envoyées sur WhatsApp.",
+                delay: "Livraison : 10 jours",
+              },
+              {
+                tag: "Cabinets d'avocats & notaires",
+                title: "LegalTech OCR dossiers & agenda audiences",
+                desc: "Numérisation OCR instantanée des dossiers papier, recherche par mot-clé et alertes automatiques anti-oubli d'audience.",
+                delay: "Livraison : 7 jours",
+              },
+              {
+                tag: "Ressources humaines",
+                title: "Gestion RH, paie & pointage par badge NFC",
+                desc: "Pointage des employés par carte NFC/QR, gestion des congés, absences, contrats et édition des bulletins de paie.",
+                delay: "Livraison : 10 jours",
+              },
+              {
+                tag: "BTP & génie civil",
+                title: "Suivi de chantiers, devis DQE/BPU & flotte",
+                desc: "Chiffrage de marchés, contrôle des approvisionnements, suivi des engins, carburant et rapports photo terrain.",
+                delay: "Livraison : 14 jours",
+              },
+              {
+                tag: "Santé, écoles & GIE",
+                title: "Portails IPM, gestion scolaire & tontine digitale",
+                desc: "Dossier patient, lettres de garantie, recouvrement scolarité Wave/OM et suivi transparent des cotisations de GIE.",
+                delay: "Livraison : 10 jours",
+              },
+            ].map((item) => (
+              <div
+                key={item.title}
+                className="rounded-2xl bg-slate-50 border border-slate-200 hover:border-sky-400 p-5 flex flex-col justify-between space-y-3 transition-all"
+              >
+                <div className="space-y-2">
+                  <span className="inline-block px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-extrabold">
+                    {item.tag}
+                  </span>
+                  <h3 className="text-base font-extrabold text-slate-950 leading-snug">
+                    {item.title}
+                  </h3>
+                  <p className="text-xs text-slate-600 leading-relaxed">{item.desc}</p>
+                </div>
+                <div className="pt-2.5 border-t border-slate-200/80 flex items-center justify-between text-[11px] font-bold">
+                  <span className="text-sky-700">{item.delay}</span>
+                  <Link
+                    href="/commander?tab=solutions"
+                    className="text-emerald-700 hover:underline inline-flex items-center gap-1"
+                  >
+                    <span>Demander ce logiciel</span>
+                    <ArrowRight className="w-3 h-3" />
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 7. BANDEAU FINAL : COMMANDE, DEVIS & RESSOURCES */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-20">
         <div className="rounded-3xl bg-brand-950 hero-grid text-white p-7 sm:p-11 border border-sky-500/30 shadow-2xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-7 space-y-4">
             <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-300 text-xs font-bold">
               <Bot className="w-4 h-4" />
-              Moteur IA 24/7 &amp; devis instantané
+              Commande express &amp; devis instantané
             </span>
             <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
               Prêt à digitaliser votre organisation avec Sen-E-Carte ?
             </h2>
             <p className="text-sm text-slate-300 leading-relaxed">
-              Estimez votre budget en 30 secondes sur notre configurateur, commandez vos cartes NFC/QR par Wave ou Orange Money, ou activez notre agent chasseur IA 24/7.
+              Estimez votre budget en 30 secondes sur notre configurateur, commandez vos cartes de visite NFC/QR ou lancez votre logiciel métier sur-mesure.
             </p>
             <div className="flex flex-wrap gap-3 pt-1">
               <Link

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   CreditCard,
   Smartphone,
@@ -121,6 +121,13 @@ interface OrderResult {
 
 export default function CommanderPage() {
   const [orderTab, setOrderTab] = useState<OrderTab>("CARTES");
+
+  useEffect(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("tab") === "solutions") setOrderTab("SOLUTIONS");
+    } catch {}
+  }, []);
 
   // Track 1: Cartes intelligentes QR/NFC
   const [planId, setPlanId] = useState<PlanId>("premium");
