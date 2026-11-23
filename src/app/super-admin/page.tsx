@@ -25,6 +25,7 @@ import {
   Trash2,
 } from "lucide-react";
 import { SITE_CONFIG, SOLUTIONS } from "@/data/senecarteData";
+import { DIRECTOR_EMAIL, isDirectorEmail, isDirectorWhatsapp } from "@/lib/contactExtractor";
 import SuperAdminAgentsConsole from "@/components/SuperAdminAgentsConsole";
 
 type AdminTab = "dashboard" | "prospection" | "agents" | "factures" | "contrats" | "veille";
@@ -38,6 +39,7 @@ interface ProspectItem {
   score: number;
   emailTo: string;
   whatsappTo: string;
+  sourceUrl?: string;
   emailSubject: string;
   emailDraft: string;
   whatsappDraft: string;
@@ -80,8 +82,8 @@ const INITIAL_PROSPECTS: ProspectItem[] = [
     sector: "LegalTech & justice",
     city: "Dakar",
     score: 94,
-    emailTo: "ahmedtall08@gmail.com",
-    whatsappTo: "221776026783",
+    emailTo: "",
+    whatsappTo: "",
     emailSubject: "Digitalisation OCR & agenda des audiences — Sen-E-Carte",
     emailDraft:
       "Bonjour Maître,\n\nSuite à notre déploiement réussi pour le Cabinet Maître Ibrahima Mbengue, Sen-E-Carte propose aux cabinets d'avocats du Sénégal une plateforme dédiée combinant numérisation OCR instantanée des dossiers et agenda numérique des audiences avec alertes anti-oubli.\n\nSeriez-vous disponible 15 minutes cette semaine pour une présentation rapide ?\n\nCordialement,\nAhmed Tall — Sen-E-Carte",
@@ -96,8 +98,8 @@ const INITIAL_PROSPECTS: ProspectItem[] = [
     sector: "Santé & IPM",
     city: "Dakar",
     score: 91,
-    emailTo: "ahmedtall08@gmail.com",
-    whatsappTo: "221776026783",
+    emailTo: "",
+    whatsappTo: "",
     emailSubject: "Cartes santé QR-NFC & portail anti-fraude pour votre IPM",
     emailDraft:
       "Bonjour,\n\nSen-E-Carte équipe les IPM et mutuelles de santé au Sénégal avec des cartes QR dynamiques & NFC permettant de vérifier les droits en 1 seconde, d'émettre des lettres de garantie en ligne et d'éliminer les doublons de prise en charge.\n\nNous serions ravis de vous faire une démonstration sur votre cas concret.\n\nBien cordialement,\nAhmed Tall — Sen-E-Carte",
@@ -275,7 +277,16 @@ export default function SuperAdminPage() {
         setAuthenticated(true);
       }
       const savedP = localStorage.getItem("senecarte_sa_prospects");
-      if (savedP) setProspects(JSON.parse(savedP));
+      if (savedP) {
+        const parsed = JSON.parse(savedP) as ProspectItem[];
+        setProspects(
+          parsed.map((item) => ({
+            ...item,
+            emailTo: isDirectorEmail(item.emailTo || "") ? "" : item.emailTo || "",
+            whatsappTo: isDirectorWhatsapp(item.whatsappTo || "") ? "" : item.whatsappTo || "",
+          }))
+        );
+      }
       const savedB = localStorage.getItem("senecarte_sa_billing");
       if (savedB) setBillingDocs(JSON.parse(savedB));
       const savedC = localStorage.getItem("senecarte_sa_contracts");
@@ -370,12 +381,12 @@ export default function SuperAdminPage() {
             sector: l.sector || slug,
             city: l.city || selectedCity,
             score: l.score || 88,
-            emailTo: "ahmedtall08@gmail.com",
-            whatsappTo: "221776026783",
+            emailTo: "",
+            whatsappTo: "",
             emailSubject: `Proposition digitale Sen-E-Carte pour ${l.companyName || "votre structure"}`,
             emailDraft:
               l.emailPitch ||
-              `Bonjour,\n\nSen-E-Carte accompagne les structures de votre secteur au Sénégal avec des solutions concrètes (cartes QR-NFC, plateformes SaaS et IA).\n\nCordialement,\nAhmed Tall`,
+              `Bonjour,\n\nSen-E-Carte accompagne les structures de votre secteur au Sénégal avec des solutions concrètes (cartes QR-NFC, plateformes SaaS et IA).\n\nCordialement,\nAhmed Tall — DG Sen-E-Carte (${DIRECTOR_EMAIL})`,
             whatsappDraft:
               l.whatsappPitch ||
               `Bonjour, c'est Ahmed Tall de Sen-E-Carte. Nous avons une solution digitale adaptée à ${l.companyName || "votre organisation"}. Puis-je vous la présenter ?`,
@@ -401,10 +412,10 @@ export default function SuperAdminPage() {
     setIsSearching(true);
     setFeedbackMsg("");
     try {
-      const res = await fetch("/api/cron/prospection-autonome");
+      const res = await fetch("/api/cron/prospection-autonome?fromAdmin=1");
       const data = await res.json();
       if (res.ok && Array.isArray(data.leads)) {
-        const topLeads: ProspectItem[] = data.leads.slice(0, 5).map(
+        const topLeads: ProspectItem[] = data.leads.slice(0, 6).map(
           (
             l: {
               id?: string;
@@ -414,6 +425,8 @@ export default function SuperAdminPage() {
               score?: number;
               whatsappPitch?: string;
               sourceUrl?: string;
+              contactEmail?: string;
+              contactWhatsapp?: string;
             },
             idx: number
           ) => ({
@@ -423,19 +436,21 @@ export default function SuperAdminPage() {
             sector: l.solutionName || "Solutions Sen-E-Carte",
             city: "Sénégal",
             score: l.score || 89,
-            emailTo: "ahmedtall08@gmail.com",
-            whatsappTo: "221776026783",
+            emailTo: l.contactEmail && !isDirectorEmail(l.contactEmail) ? l.contactEmail : "",
+            whatsappTo: l.contactWhatsapp && !isDirectorWhatsapp(l.contactWhatsapp) ? l.contactWhatsapp : "",
+            sourceUrl: l.sourceUrl || "",
             emailSubject: `Partenariat digital Sen-E-Carte — ${l.companyName || "Sénégal"}`,
-            emailDraft: `Bonjour,\n\nNous avons repéré votre activité (${l.sourceUrl || "en ligne"}) et souhaitons vous présenter notre solution « ${l.solutionName || "Sen-E-Carte"} » déjà déployée au Sénégal.\n\nDisponible pour un court échange cette semaine ?\n\nCordialement,\nAhmed Tall — Sen-E-Carte`,
+            emailDraft: `Bonjour,\n\nNous avons repéré votre activité (${l.sourceUrl || "en ligne"}) et souhaitons vous présenter notre solution « ${l.solutionName || "Sen-E-Carte"} » déjà déployée au Sénégal.\n\nDisponible pour un court échange cette semaine ?\n\nCordialement,\nAhmed Tall — DG Sen-E-Carte (${DIRECTOR_EMAIL})`,
             whatsappDraft:
               l.whatsappPitch ||
               `Bonjour, c'est Ahmed Tall de Sen-E-Carte. Nous proposons des solutions digitales sur-mesure pour votre secteur au Sénégal.`,
             status: "EN_ATTENTE",
           })
         );
+        const withContacts = topLeads.filter((x) => x.emailTo || x.whatsappTo).length;
         setProspects((prev) => [...topLeads, ...prev]);
         setFeedbackMsg(
-          `Chasse autonome terminée : ${topLeads.length} prospects ajoutés en attente de validation directeur.`
+          `Chasse autonome terminée : ${topLeads.length} prospects ajoutés (${withContacts} avec email/WhatsApp extrait automatiquement), en attente de votre accord.`
         );
       }
     } catch {
@@ -445,8 +460,21 @@ export default function SuperAdminPage() {
     }
   };
 
-  // Approve & Send Email (requires explicit Director click)
+  // Approve & Send Email (requires explicit Director click — sent to REAL prospect, reply-to Ahmed Tall)
   const handleApproveAndSendEmail = async (p: ProspectItem) => {
+    const targetEmail = (p.emailTo || "").trim();
+    if (!targetEmail || !targetEmail.includes("@")) {
+      setFeedbackMsg(
+        `Veuillez renseigner l'adresse email réelle du destinataire (${p.companyName}) avant d'approuver l'envoi.`
+      );
+      return;
+    }
+    if (isDirectorEmail(targetEmail)) {
+      setFeedbackMsg(
+        `Impossible d'envoyer une offre client à ${DIRECTOR_EMAIL} (c'est votre email DG). Saisissez l'email réel de ${p.companyName}.`
+      );
+      return;
+    }
     setSendingId(p.id);
     setFeedbackMsg("");
     try {
@@ -481,9 +509,15 @@ export default function SuperAdminPage() {
     }
   };
 
-  // Approve & Open WhatsApp
+  // Approve & Open WhatsApp (strictly to REAL prospect's WhatsApp — never Ahmed Tall's number)
   const handleApproveAndSendWhatsApp = (p: ProspectItem) => {
-    const cleanNum = p.whatsappTo.replace(/[^0-9]/g, "") || SITE_CONFIG.whatsapp;
+    const cleanNum = (p.whatsappTo || "").replace(/[^0-9]/g, "");
+    if (!cleanNum || cleanNum.length < 9 || isDirectorWhatsapp(cleanNum)) {
+      setFeedbackMsg(
+        `Veuillez renseigner le vrai numéro WhatsApp de la structure (${p.companyName}, ex : 22177xxxxxxx) avant d'envoyer — jamais votre propre numéro DG.`
+      );
+      return;
+    }
     const url = `https://wa.me/${cleanNum}?text=${encodeURIComponent(p.whatsappDraft)}`;
     window.open(url, "_blank", "noopener,noreferrer");
     setProspects((prev) =>
@@ -948,7 +982,7 @@ export default function SuperAdminPage() {
                     Agent de prospection IA · validation directeur obligatoire
                   </h2>
                   <p className="text-xs sm:text-sm text-slate-600 mt-1">
-                    L&apos;agent détecte les prospects et rédige les notes email et WhatsApp. Rien n&apos;est envoyé tant que vous ne cliquez pas sur « Approuver &amp; envoyer ».
+                    L&apos;agent détecte les structures, extrait leur vrai email &amp; numéro WhatsApp et rédige les offres. Après votre accord, l&apos;offre part directement au <strong>vrai destinataire</strong> avec réponse dirigée vers <strong>{DIRECTOR_EMAIL}</strong>.
                   </p>
                 </div>
                 <button
@@ -1068,7 +1102,7 @@ export default function SuperAdminPage() {
                           type="email"
                           value={p.emailTo}
                           onChange={(e) => updateProspectField(p.id, "emailTo", e.target.value)}
-                          placeholder="Email du prospect"
+                          placeholder="Email réel de la structure (ex : contact@structure.sn)"
                           className="px-3 py-2 rounded-lg border border-slate-300 bg-white text-xs font-medium"
                         />
                         <input
@@ -1109,7 +1143,7 @@ export default function SuperAdminPage() {
                         type="text"
                         value={p.whatsappTo}
                         onChange={(e) => updateProspectField(p.id, "whatsappTo", e.target.value)}
-                        placeholder="Numéro WhatsApp (ex : 22177...)"
+                        placeholder="WhatsApp réel du prospect (ex : 22177xxxxxxx)"
                         className="w-full px-3 py-2 rounded-lg border border-emerald-200 bg-white text-xs font-medium"
                       />
                       <textarea

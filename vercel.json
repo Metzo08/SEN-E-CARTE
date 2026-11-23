@@ -2,12 +2,8 @@
   "framework": "nextjs",
   "crons": [
     {
-      "path": "/api/cron/prospection-autonome",
-      "schedule": "0 8 * * *"
-    },
-    {
       "path": "/api/cron/veille-marketing-hebdo",
-      "schedule": "0 9 * * 1,4"
+      "schedule": "0 8 * * *"
     }
   ],
   "headers": [

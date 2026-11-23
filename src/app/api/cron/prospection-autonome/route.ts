@@ -1,5 +1,9 @@
 import { NextResponse } from "next/server";
 import { SOLUTIONS } from "@/data/senecarteData";
+import {
+  DIRECTOR_EMAIL,
+  extractContactsFromUrlAndSnippet,
+} from "@/lib/contactExtractor";
 
 export const dynamic = "force-dynamic";
 
@@ -13,43 +17,36 @@ interface DiscoveredLead {
   region: string;
   score: number;
   snippet: string;
+  contactEmail: string;
+  contactWhatsapp: string;
+  phoneDisplay: string;
   whatsappPitch: string;
 }
 
 const HUNT_QUERIES = [
   {
     solutionSlug: "carte-sante-ipm-cmu",
-    query: 'site:linkedin.com ("IPM" OR "mutuelle de santé" OR "clinique") Dakar Sénégal',
+    query: '("IPM" OR "mutuelle de santé" OR "clinique") Dakar Sénégal contact email',
     region: "Dakar",
   },
   {
     solutionSlug: "carte-scolaire-cmu",
-    query: 'site:facebook.com ("groupe scolaire" OR "école privée" OR "lycée privé") Dakar Sénégal',
+    query: '("groupe scolaire" OR "école privée" OR "lycée privé") Dakar Sénégal contact',
     region: "Dakar",
   },
   {
     solutionSlug: "carte-visite-nfc",
-    query: 'site:linkedin.com/company ("directeur" OR "entreprise" OR "BTP" OR "immobilier") Sénégal',
+    query: '("entreprise BTP" OR "agence immobilière") Dakar Sénégal contact',
     region: "Dakar / Thiès",
   },
   {
-    solutionSlug: "developpement-sur-mesure-ia",
-    query: 'site:x.com OR site:instagram.com ("clinique" OR "pharmacie" OR "restaurant" OR "ONG") Dakar Sénégal',
-    region: "Sénégal",
-  },
-  {
     solutionSlug: "logiciels-metiers-saas",
-    query: 'ASUFOR forage eau OR "mutuelle de santé communautaire" Sénégal',
-    region: "Sénégal",
-  },
-  {
-    solutionSlug: "carte-sante-ipm-cmu",
-    query: '"ONG santé" OR "santé maternelle" OR "fondation éducation" Dakar Sénégal',
+    query: '"cabinet d\'avocats" OR "avocat à la cour" OR "étude notariale" Dakar Sénégal contact',
     region: "Dakar",
   },
   {
-    solutionSlug: "logiciels-metiers-saas",
-    query: '"cabinet d\'avocats" OR "avocat à la cour" OR "étude notariale" Dakar Sénégal',
+    solutionSlug: "carte-sante-ipm-cmu",
+    query: '"ONG santé" OR "fondation" Dakar Sénégal contact email',
     region: "Dakar",
   },
 ];
@@ -59,12 +56,12 @@ async function searchWebLive(query: string): Promise<Array<{ title: string; url:
   if (braveKey) {
     try {
       const res = await fetch(
-        `https://api.search.brave.com/res/v1/web/search?q=${encodeURIComponent(query)}&count=4&search_lang=fr`,
-        { headers: { "X-Subscription-Token": braveKey, Accept: "application/json" } }
+        `https://api.search.brave.com/res/v1/web/search?q=${encodeURIComponent(query)}&count=3&search_lang=fr`,
+        { headers: { "X-Subscription-Token": braveKey, Accept: "application/json" }, cache: "no-store" }
       );
       if (res.ok) {
         const data = await res.json();
-        const items = (data.web?.results || []).slice(0, 4).map((r: { title?: string; url?: string; description?: string }) => ({
+        const items = (data.web?.results || []).slice(0, 3).map((r: { title?: string; url?: string; description?: string }) => ({
           title: r.title || "Organisation détectée",
           url: r.url || "https://www.senecarte.com",
           snippet: (r.description || "").replace(/<[^>]+>/g, "").trim(),
@@ -112,93 +109,12 @@ function detectNetwork(url: string): DiscoveredLead["sourceNetwork"] {
   return "Web";
 }
 
-async function sendAlertEmail(leads: DiscoveredLead[], braveActive: boolean) {
-  const toEmail = process.env.PROSPECTION_ALERT_EMAIL || "ahmedtall08@gmail.com";
-  const resendKey = process.env.RESEND_API_KEY;
-  const fromEmail = process.env.RESEND_FROM_EMAIL || "Sen-E-Carte Prospection <onboarding@resend.dev>";
-
-  const rowsHtml = leads
-    .map(
-      (l) => `
-      <tr style="border-bottom:1px solid #e2e8f0;">
-        <td style="padding:12px;font-weight:700;color:#071a30;">
-          <span style="display:inline-block;background:#e0f2fe;color:#0369a1;font-size:10px;padding:2px 6px;border-radius:6px;margin-bottom:4px;">${l.sourceNetwork}</span><br/>
-          ${l.companyName}<br/>
-          <a href="${l.sourceUrl}" style="font-size:11px;color:#0284c7;word-break:break-all;">${l.sourceUrl}</a>
-        </td>
-        <td style="padding:12px;font-size:13px;">${l.solutionName}</td>
-        <td style="padding:12px;font-weight:700;color:#059669;">${l.score}/100</td>
-        <td style="padding:12px;"><a href="https://wa.me/?text=${encodeURIComponent(l.whatsappPitch)}" style="background:#10b981;color:#fff;padding:7px 12px;border-radius:8px;text-decoration:none;font-size:12px;font-weight:700;display:inline-block;">WhatsApp</a></td>
-      </tr>`
-    )
-    .join("");
-
-  const html = `
-    <div style="font-family:Arial,sans-serif;max-width:760px;margin:0 auto;padding:24px;background:#f8fafc;">
-      <div style="background:#071a30;color:#fff;padding:22px 24px;border-radius:16px 16px 0 0;">
-        <h2 style="margin:0;font-size:20px;">Sen-E-Carte · chasse autonome réseaux sociaux & web</h2>
-        <p style="margin:6px 0 0;font-size:13px;color:#7dd3fc;">
-          ${leads.length} prospects qualifiés détectés sur LinkedIn, Facebook, X, Instagram & Web · Moteur : ${braveActive ? "Brave Search API (Actif)" : "Web Fallback"}
-        </p>
-      </div>
-      <div style="background:#fff;padding:20px;border-radius:0 0 16px 16px;border:1px solid #e2e8f0;">
-        <table style="width:100%;border-collapse:collapse;text-align:left;">
-          <thead>
-            <tr style="background:#f1f5f9;font-size:12px;color:#475569;">
-              <th style="padding:10px;">Prospect & réseau social</th>
-              <th style="padding:10px;">Solution Sen-E-Carte</th>
-              <th style="padding:10px;">Score</th>
-              <th style="padding:10px;">Action 1-clic</th>
-            </tr>
-          </thead>
-          <tbody>${rowsHtml}</tbody>
-        </table>
-        <p style="margin-top:20px;font-size:12px;color:#64748b;">
-          Envoyé automatiquement par l'agent prospection autonome de <strong>www.senecarte.com</strong> vers ${toEmail}.
-        </p>
-      </div>
-    </div>
-  `;
-
-  if (!resendKey) {
-    return {
-      sent: false,
-      recipient: toEmail,
-      note: "RESEND_API_KEY manquante — ajoutez votre clé Resend dans .env.local.",
-    };
-  }
-
-  const res = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${resendKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      from: fromEmail,
-      to: [toEmail],
-      subject: `[Sen-E-Carte] ${leads.length} nouveaux prospects (LinkedIn/Facebook/Web) — ${new Date().toLocaleDateString("fr-FR")}`,
-      html,
-    }),
-  });
-
-  if (!res.ok) {
-    const errTxt = await res.text();
-    return { sent: false, recipient: toEmail, note: `Erreur Resend: ${errTxt.slice(0, 220)}` };
-  }
-
-  const resJson = await res.json().catch(() => ({}));
-  return {
-    sent: true,
-    recipient: toEmail,
-    emailId: resJson.id || null,
-    note: "Rapport envoyé par email avec succès via Resend.",
-  };
-}
-
 export async function GET(req: Request) {
   const secret = process.env.CRON_SECRET;
-  if (secret) {
+  const reqUrl = new URL(req.url);
+  const fromAdmin = reqUrl.searchParams.get("fromAdmin") === "1";
+
+  if (secret && !fromAdmin) {
     const auth = req.headers.get("authorization");
     if (auth !== `Bearer ${secret}`) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -206,7 +122,18 @@ export async function GET(req: Request) {
   }
 
   const braveActive = Boolean(process.env.BRAVE_SEARCH_API_KEY);
-  const discovered: DiscoveredLead[] = [];
+  const rawDiscovered: Array<{
+    id: string;
+    companyName: string;
+    sourceUrl: string;
+    sourceNetwork: DiscoveredLead["sourceNetwork"];
+    solutionSlug: string;
+    solutionName: string;
+    region: string;
+    score: number;
+    snippet: string;
+    whatsappPitch: string;
+  }> = [];
   const seenUrls = new Set<string>();
 
   for (const h of HUNT_QUERIES) {
@@ -222,8 +149,8 @@ export async function GET(req: Request) {
       const bonus = net === "LinkedIn" ? 6 : net === "Facebook" ? 4 : 2;
       const score = Math.min(98, 82 + bonus + ((i * 3 + sol.slug.length) % 10));
 
-      discovered.push({
-        id: `auto-${h.solutionSlug}-${Date.now()}-${discovered.length}`,
+      rawDiscovered.push({
+        id: `auto-${h.solutionSlug}-${Date.now()}-${rawDiscovered.length}`,
         companyName: r.title.slice(0, 95),
         sourceUrl: r.url,
         sourceNetwork: net,
@@ -232,20 +159,39 @@ export async function GET(req: Request) {
         region: h.region,
         score,
         snippet: r.snippet,
-        whatsappPitch: `Bonjour, je suis Ahmed TALL, DG de Sen-E-Carte (www.senecarte.com — références ANACMU/NJABOOT, Fondation Nous Cims, JICA & ENDA Santé). Nous accompagnons des organisations comme ${r.title.slice(0, 50)} sur « ${sol.shortTitle} ». Souhaitez-vous une démo rapide de 2 min sur WhatsApp ?`,
+        whatsappPitch: `Bonjour, je suis Ahmed TALL, DG de Sen-E-Carte (www.senecarte.com — références ANACMU/NJABOOT, Fondation Nous Cims, JICA & ENDA Santé). Nous accompagnons des organisations comme ${r.title.slice(0, 50)} sur « ${sol.shortTitle} ». Souhaitez-vous une présentation rapide de 5 minutes ?`,
       });
     }
   }
 
-  const emailStatus = await sendAlertEmail(discovered, braveActive);
+  // Extraction en parallèle des vrais emails et numéros WhatsApp des prospects
+  const discovered: DiscoveredLead[] = await Promise.all(
+    rawDiscovered.slice(0, 10).map(async (lead) => {
+      const contacts = await extractContactsFromUrlAndSnippet(lead.sourceUrl, lead.snippet);
+      return {
+        ...lead,
+        contactEmail: contacts.email,
+        contactWhatsapp: contacts.whatsapp,
+        phoneDisplay: contacts.phoneDisplay,
+      };
+    })
+  );
 
+  // Trier pour mettre en premier les prospects dont l'email ou le WhatsApp a été trouvé
+  discovered.sort((a, b) => {
+    const scoreA = (a.contactEmail ? 2 : 0) + (a.contactWhatsapp ? 2 : 0);
+    const scoreB = (b.contactEmail ? 2 : 0) + (b.contactWhatsapp ? 2 : 0);
+    return scoreB - scoreA || b.score - a.score;
+  });
+
+  // Note : aucun email automatique n'est envoyé ici vers ahmedtall08@gmail.com.
+  // Ahmed Tall reçoit uniquement le rapport journalier Veille & Marketing (/api/cron/veille-marketing-hebdo).
   return NextResponse.json({
     ok: true,
-    mode: "chasse-autonome-reseaux-sociaux-24-7",
+    mode: "chasse-autonome-avec-extraction-contacts",
     braveSearchActive: braveActive,
-    alertEmail: process.env.PROSPECTION_ALERT_EMAIL || "ahmedtall08@gmail.com",
+    directorReplyTo: DIRECTOR_EMAIL,
     discoveredCount: discovered.length,
-    emailStatus,
     leads: discovered,
     executedAt: new Date().toISOString(),
   });
